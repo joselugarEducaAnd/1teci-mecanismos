@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 454.0" role="img"><title>Caja de velocidades de dos marchas con tres ejes, con la primera marcha metida: los bloques desplazables del eje intermedio dejan engranadas Z2 con Z1 y Z5 con Z6.</title>
+<defs><marker id="pta" markerWidth="9" markerHeight="9" refX="8" refY="3" orient="auto"><path d="M0,0 L9,3 L0,6 z" fill="#2c6fb0"/></marker><marker id="pta2" markerWidth="9" markerHeight="9" refX="8" refY="3" orient="auto"><path d="M0,0 L9,3 L0,6 z" fill="#60551f"/></marker></defs>
+<line x1="120.0" y1="108.0" x2="980.0" y2="108.0" stroke="#1a1a1a" stroke-width="1.8"/>
+<text x="996.0" y="113.0" font-family="Verdana, 'DejaVu Sans', Arial, sans-serif" font-size="20.3" fill="#1a1a1a" text-anchor="start" font-weight="bold" font-style="normal">I</text>
+<line x1="120.0" y1="208.0" x2="980.0" y2="208.0" stroke="#1a1a1a" stroke-width="1.8"/>
+<text x="996.0" y="213.0" font-family="Verdana, 'DejaVu Sans', Arial, sans-serif" font-size="20.3" fill="#1a1a1a" text-anchor="start" font-weight="bold" font-style="normal">II</text>
+<line x1="120.0" y1="328.0" x2="980.0" y2="328.0" stroke="#1a1a1a" stroke-width="1.8"/>
+<text x="996.0" y="333.0" font-family="Verdana, 'DejaVu Sans', Arial, sans-serif" font-size="20.3" fill="#1a1a1a" text-anchor="start" font-weight="bold" font-style="normal">III · salida</text>
+<rect x="120.0" y="87.0" width="74.0" height="42.0" rx="0" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.2"/>
+<text x="157.0" y="113.0" font-family="Verdana, 'DejaVu Sans', Arial, sans-serif" font-size="17.4" fill="#1a1a1a" text-anchor="middle" font-weight="bold" font-style="normal">MOTOR</text>
+<text x="157.0" y="147.0" font-family="Verdana, 'DejaVu Sans', Arial, sans-serif" font-size="17.4" fill="#60551f" text-anchor="middle" font-weight="bold" font-style="normal">1 800 rpm</text>
+<rect x="293.5" y="83.0" width="13.0" height="50.0" rx="0" fill="#ded8b8" stroke="#60551f" stroke-width="1.2"/>
+<line x1="293.0" y1="101.0" x2="307.0" y2="115.0" stroke="#1a1a1a" stroke-width="1.2"/>
+<line x1="293.0" y1="115.0" x2="307.0" y2="101.0" stroke="#1a1a1a" stroke-width="1.2"/>
+<text x="284.5" y="101.0" font-family="Verdana, 'DejaVu Sans', Arial, sans-serif" font-size="17.4" fill="#1a1a1a" text-anchor="end" font-weight="bold" font-style="normal">Z₁ = 25</text>
+<rect x="483.5" y="63.0" width="13.0" height="90.0" rx="0" fill="#ded8b8" stroke="#60551f" stroke-width="1.2"/>
+<line x1="483.0" y1="101.0" x2="497.0" y2="115.0" stroke="#1a1a1a" stroke-width="1.2"/>
+<line x1="483.0" y1="115.0" x2="497.0" y2="101.0" stroke="#1a1a1a" stroke-width="1.2"/>
+<text x="505.5" y="101.0" font-family="Verdana, 'DejaVu Sans', Arial, sans-serif" font-size="17.4" fill="#1a1a1a" text-anchor="start" font-weight="bold" font-style="normal">Z₃ = 45</text>
+<rect x="653.5" y="228.0" width="13.0" height="200.0" rx="0" fill="#ded8b8" stroke="#60551f" stroke-width="1.2"/>
+<line x1="653.0" y1="321.0" x2="667.0" y2="335.0" stroke="#1a1a1a" stroke-width="1.2"/>
+<line x1="653.0" y1="335.0" x2="667.0" y2="321.0" stroke="#1a1a1a" stroke-width="1.2"/>
+<text x="644.5" y="321.0" font-family="Verdana, 'DejaVu Sans', Arial, sans-serif" font-size="17.4" fill="#1a1a1a" text-anchor="end" font-weight="bold" font-style="normal">Z₆ = 100</text>
+<rect x="823.5" y="268.0" width="13.0" height="120.0" rx="0" fill="#ded8b8" stroke="#60551f" stroke-width="1.2"/>
+<line x1="823.0" y1="321.0" x2="837.0" y2="335.0" stroke="#1a1a1a" stroke-width="1.2"/>
+<line x1="823.0" y1="335.0" x2="837.0" y2="321.0" stroke="#1a1a1a" stroke-width="1.2"/>
+<text x="845.5" y="321.0" font-family="Verdana, 'DejaVu Sans', Arial, sans-serif" font-size="17.4" fill="#1a1a1a" text-anchor="start" font-weight="bold" font-style="normal">Z₈ = ?</text>
+<rect x="293.5" y="133.0" width="13.0" height="150.0" rx="0" fill="#ded8b8" stroke="#60551f" stroke-width="1.2"/>
+<text x="284.5" y="201.0" font-family="Verdana, 'DejaVu Sans', Arial, sans-serif" font-size="17.4" fill="#1a1a1a" text-anchor="end" font-weight="bold" font-style="normal">Z₂ = 75</text>
+<rect x="335.5" y="153.0" width="13.0" height="110.0" rx="0" fill="#ded8b8" stroke="#60551f" stroke-width="1.2"/>
+<text x="357.5" y="201.0" font-family="Verdana, 'DejaVu Sans', Arial, sans-serif" font-size="17.4" fill="#1a1a1a" text-anchor="start" font-weight="bold" font-style="normal">Z₄ = ?</text>
+<rect x="653.5" y="188.0" width="13.0" height="40.0" rx="0" fill="#ded8b8" stroke="#60551f" stroke-width="1.2"/>
+<text x="644.5" y="201.0" font-family="Verdana, 'DejaVu Sans', Arial, sans-serif" font-size="17.4" fill="#1a1a1a" text-anchor="end" font-weight="bold" font-style="normal">Z₅ = 20</text>
+<rect x="695.5" y="148.0" width="13.0" height="120.0" rx="0" fill="#ded8b8" stroke="#60551f" stroke-width="1.2"/>
+<text x="717.5" y="201.0" font-family="Verdana, 'DejaVu Sans', Arial, sans-serif" font-size="17.4" fill="#1a1a1a" text-anchor="start" font-weight="bold" font-style="normal">Z₇ = 60</text>
+<rect x="306.5" y="198.0" width="29.0" height="20.0" rx="0" fill="#ded8b8" stroke="#60551f" stroke-width="1.2"/><line x1="314.0" y1="215.0" x2="328.0" y2="201.0" stroke="#1a1a1a" stroke-width="1.2"/>
+<rect x="666.5" y="198.0" width="29.0" height="20.0" rx="0" fill="#ded8b8" stroke="#60551f" stroke-width="1.2"/><line x1="674.0" y1="215.0" x2="688.0" y2="201.0" stroke="#1a1a1a" stroke-width="1.2"/>
+</svg>
