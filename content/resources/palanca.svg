@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 300" role="img"><title>Palanca: barra rígida apoyada en el fulcro, con la potencia P en un extremo, la resistencia R en el otro y sus brazos b sub P y b sub R medidos desde el fulcro.</title>
+<rect x="0" y="0" width="720" height="300" fill="#ffffff"/>
+<defs>
+<marker id="pk" markerWidth="10" markerHeight="10" refX="9" refY="3.5" orient="auto-start-reverse" markerUnits="userSpaceOnUse"><path d="M0,0 L10,3.5 L0,7 z" fill="#1a1a1a"/></marker>
+</defs>
+<rect x="110" y="143" width="500" height="14" rx="3" fill="#f9f7ee" stroke="#1a1a1a" stroke-width="2"/>
+<path d="M400,157 L378,196 L422,196 Z" fill="#ded8b8" stroke="#60551f" stroke-width="2"/>
+<line x1="366" y1="196" x2="434" y2="196" stroke="#1a1a1a" stroke-width="2"/>
+<line x1="118" y1="58" x2="118" y2="120" stroke="#b03a2e" stroke-width="6"/>
+<path d="M107,118 L129,118 L118,142 Z" fill="#b03a2e"/>
+<line x1="602" y1="58" x2="602" y2="120" stroke="#2c6fb0" stroke-width="6"/>
+<path d="M591,118 L613,118 L602,142 Z" fill="#2c6fb0"/>
+<text x="140" y="94" font-family="Verdana, 'DejaVu Sans', Arial, sans-serif" font-size="26" text-anchor="start" font-weight="bold" fill="#b03a2e">P</text>
+<text x="580" y="94" font-family="Verdana, 'DejaVu Sans', Arial, sans-serif" font-size="26" text-anchor="end" font-weight="bold" fill="#2c6fb0">R</text>
+<text x="106" y="28" font-family="Verdana, 'DejaVu Sans', Arial, sans-serif" font-size="14" text-anchor="start" font-weight="bold" fill="#b03a2e">POTENCIA</text>
+<text x="106" y="46" font-family="Verdana, 'DejaVu Sans', Arial, sans-serif" font-size="13" text-anchor="start" font-weight="normal" fill="#b03a2e">(fuerza que aplicamos)</text>
+<text x="614" y="28" font-family="Verdana, 'DejaVu Sans', Arial, sans-serif" font-size="14" text-anchor="end" font-weight="bold" fill="#2c6fb0">RESISTENCIA</text>
+<text x="614" y="46" font-family="Verdana, 'DejaVu Sans', Arial, sans-serif" font-size="13" text-anchor="end" font-weight="normal" fill="#2c6fb0">(fuerza que queremos vencer)</text>
+<text x="400" y="220" font-family="Verdana, 'DejaVu Sans', Arial, sans-serif" font-size="14" text-anchor="middle" font-weight="bold" fill="#60551f">FULCRO (punto de apoyo)</text>
+<line x1="118" y1="160" x2="118" y2="268" stroke="#1a1a1a" stroke-width="1"/>
+<line x1="400" y1="230" x2="400" y2="268" stroke="#1a1a1a" stroke-width="1"/>
+<line x1="602" y1="160" x2="602" y2="268" stroke="#1a1a1a" stroke-width="1"/>
+<line x1="118" y1="260" x2="400" y2="260" stroke="#1a1a1a" stroke-width="1.2" marker-start="url(#pk)" marker-end="url(#pk)"/>
+<line x1="400" y1="260" x2="602" y2="260" stroke="#1a1a1a" stroke-width="1.2" marker-start="url(#pk)" marker-end="url(#pk)"/>
+<text x="259" y="250" font-family="Verdana, 'DejaVu Sans', Arial, sans-serif" font-size="20" text-anchor="middle" font-weight="bold" fill="#b03a2e">b<tspan font-size="12" baseline-shift="sub">P</tspan></text>
+<text x="501" y="250" font-family="Verdana, 'DejaVu Sans', Arial, sans-serif" font-size="20" text-anchor="middle" font-weight="bold" fill="#2c6fb0">b<tspan font-size="12" baseline-shift="sub">R</tspan></text>
+<text x="259" y="286" font-family="Verdana, 'DejaVu Sans', Arial, sans-serif" font-size="13" text-anchor="middle" font-weight="normal" fill="#1a1a1a">brazo de la potencia</text>
+<text x="501" y="286" font-family="Verdana, 'DejaVu Sans', Arial, sans-serif" font-size="13" text-anchor="middle" font-weight="normal" fill="#1a1a1a">brazo de la resistencia</text>
+</svg>

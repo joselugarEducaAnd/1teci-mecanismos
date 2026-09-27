@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 300" role="img"><title>Mecanismo biela-manivela: la manivela de radio r gira alrededor de su eje; la cabeza de biela gira con ella y el pie de biela empuja el émbolo, que se mueve adelante y atrás dentro de su guía. La carrera del émbolo es c igual a 2r.</title>
+<rect x="0" y="0" width="720" height="300" fill="#ffffff"/>
+<defs>
+<marker id="ba" markerWidth="10" markerHeight="10" refX="9" refY="3.5" orient="auto-start-reverse" markerUnits="userSpaceOnUse"><path d="M0,0 L10,3.5 L0,7 z" fill="#1a1a1a"/></marker>
+<marker id="br" markerWidth="10" markerHeight="10" refX="9" refY="3.5" orient="auto-start-reverse" markerUnits="userSpaceOnUse"><path d="M0,0 L10,3.5 L0,7 z" fill="#b03a2e"/></marker>
+</defs>
+<circle cx="160" cy="190" r="80" fill="#f9f7ee" stroke="#60551f" stroke-width="2"/>
+<circle cx="160" cy="190" r="62" fill="none" stroke="#60551f" stroke-width="1" stroke-dasharray="4 4"/>
+<line x1="160" y1="190" x2="124.44" y2="139.21" stroke="#817431" stroke-width="16" stroke-linecap="round"/>
+<rect x="418" y="174" width="282" height="32" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+<rect x="369.23" y="181" width="300.77" height="18" fill="#b9b9b9" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="124.44" y1="139.21" x2="369.23" y2="190" stroke="#2c6fb0" stroke-width="10" stroke-linecap="round"/>
+<circle cx="124.44" cy="139.21" r="7" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+<circle cx="369.23" cy="190" r="7" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+<circle cx="160" cy="190" r="8" fill="#1a1a1a"/>
+<path d="M215,262 A 92 92 0 0 1 105,262" fill="none" stroke="#b03a2e" stroke-width="3" marker-end="url(#br)"/>
+<line x1="448" y1="158" x2="538" y2="158" stroke="#b03a2e" stroke-width="3" marker-start="url(#br)" marker-end="url(#br)"/>
+<line x1="348" y1="202" x2="348" y2="268" stroke="#2c6fb0" stroke-width="1" stroke-dasharray="5 4"/>
+<line x1="472" y1="202" x2="472" y2="268" stroke="#2c6fb0" stroke-width="1" stroke-dasharray="5 4"/>
+<line x1="348" y1="260" x2="472" y2="260" stroke="#2c6fb0" stroke-width="1.6" marker-start="url(#ba)" marker-end="url(#ba)"/>
+<text x="410" y="282" font-family="Verdana, 'DejaVu Sans', Arial, sans-serif" font-size="17" text-anchor="middle" font-weight="bold" fill="#2c6fb0" font-style="italic">c = 2r</text>
+<text x="126.22" y="168.61" font-family="Verdana, 'DejaVu Sans', Arial, sans-serif" font-size="17" text-anchor="end" font-weight="bold" fill="#1a1a1a" font-style="italic">r</text>
+<text x="40" y="60" font-family="Verdana, 'DejaVu Sans', Arial, sans-serif" font-size="16" text-anchor="start" font-weight="bold" fill="#60551f">Manivela</text>
+<line x1="84" y1="66" x2="138.22" y2="158.61" stroke="#1a1a1a" stroke-width="0.8"/>
+<text x="236.83" y="88" font-family="Verdana, 'DejaVu Sans', Arial, sans-serif" font-size="16" text-anchor="middle" font-weight="bold" fill="#2c6fb0">Biela</text>
+<line x1="236.83" y1="94" x2="246.83" y2="158.61" stroke="#1a1a1a" stroke-width="0.8"/>
+<text x="114.44" y="24" font-family="Verdana, 'DejaVu Sans', Arial, sans-serif" font-size="14" text-anchor="start" font-weight="bold" fill="#1a1a1a">Cabeza de biela</text>
+<text x="114.44" y="42" font-family="Verdana, 'DejaVu Sans', Arial, sans-serif" font-size="13" text-anchor="start" font-weight="normal" fill="#1a1a1a">(movimiento giratorio)</text>
+<line x1="124.44" y1="48" x2="124.44" y2="130.21" stroke="#1a1a1a" stroke-width="0.8"/>
+<text x="359.23" y="110" font-family="Verdana, 'DejaVu Sans', Arial, sans-serif" font-size="14" text-anchor="end" font-weight="bold" fill="#1a1a1a">Pie de biela</text>
+<text x="359.23" y="128" font-family="Verdana, 'DejaVu Sans', Arial, sans-serif" font-size="13" text-anchor="end" font-weight="normal" fill="#1a1a1a">(movimiento alternativo)</text>
+<line x1="363.23" y1="134" x2="369.23" y2="181" stroke="#1a1a1a" stroke-width="0.8"/>
+<text x="610" y="148" font-family="Verdana, 'DejaVu Sans', Arial, sans-serif" font-size="16" text-anchor="middle" font-weight="bold" fill="#1a1a1a">Émbolo</text>
+<line x1="610" y1="153" x2="610" y2="181" stroke="#1a1a1a" stroke-width="0.8"/>
+<text x="660" y="240" font-family="Verdana, 'DejaVu Sans', Arial, sans-serif" font-size="16" text-anchor="middle" font-weight="bold" fill="#1a1a1a">Guía</text>
+<line x1="660" y1="224" x2="660" y2="206" stroke="#1a1a1a" stroke-width="0.8"/>
+</svg>
