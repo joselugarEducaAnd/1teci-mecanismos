@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 280" role="img"><title>Manguito enterizo cortado por la mitad: una pieza cilíndrica que abraza los extremos de dos árboles alineados, fijada a cada árbol con un pasador cónico que atraviesa el manguito y el árbol.</title>
+<rect x="0" y="0" width="800" height="280" fill="#ffffff"/>
+<defs><pattern id="ray" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="7" stroke="#60551f" stroke-width="1.3"/></pattern></defs>
+<rect x="50" y="120" width="350" height="60" fill="#c9ccd1" stroke="#1a1a1a" stroke-width="2"/>
+<rect x="400" y="120" width="350" height="60" fill="#c9ccd1" stroke="#1a1a1a" stroke-width="2"/>
+<rect x="230" y="88" width="340" height="32" fill="url(#ray)" stroke="#60551f" stroke-width="2"/>
+<rect x="230" y="180" width="340" height="32" fill="url(#ray)" stroke="#60551f" stroke-width="2"/>
+<path d="M289,78 L311,78 L307,222 L293,222 Z" fill="#817431" stroke="#60551f" stroke-width="2"/>
+<path d="M489,78 L511,78 L507,222 L493,222 Z" fill="#817431" stroke="#60551f" stroke-width="2"/>
+<path d="M30,150 H770" stroke="#1a1a1a" stroke-width="1" stroke-dasharray="14 4 2 4"/>
+<text x="120" y="214" font-family="Verdana, 'DejaVu Sans', Arial, sans-serif" font-size="15" text-anchor="middle" font-weight="bold" fill="#60551f">árbol</text><path d="M120,200 L130,174" stroke="#1a1a1a" stroke-width="1" fill="none"/><circle cx="130" cy="174" r="2.5" fill="#1a1a1a"/>
+<text x="680" y="214" font-family="Verdana, 'DejaVu Sans', Arial, sans-serif" font-size="15" text-anchor="middle" font-weight="bold" fill="#60551f">árbol</text><path d="M680,200 L670,174" stroke="#1a1a1a" stroke-width="1" fill="none"/><circle cx="670" cy="174" r="2.5" fill="#1a1a1a"/>
+<text x="400" y="34" font-family="Verdana, 'DejaVu Sans', Arial, sans-serif" font-size="15" text-anchor="middle" font-weight="bold" fill="#60551f">manguito (en corte)</text><path d="M400,42 L420,100" stroke="#1a1a1a" stroke-width="1" fill="none"/><circle cx="420" cy="100" r="2.5" fill="#1a1a1a"/>
+<text x="500" y="258" font-family="Verdana, 'DejaVu Sans', Arial, sans-serif" font-size="15" text-anchor="middle" font-weight="bold" fill="#60551f">pasadores cónicos</text><path d="M470,244 L303,220" stroke="#1a1a1a" stroke-width="1" fill="none"/><circle cx="303" cy="220" r="2.5" fill="#1a1a1a"/><path d="M520,244 L503,220" stroke="#1a1a1a" stroke-width="1" fill="none"/><circle cx="503" cy="220" r="2.5" fill="#1a1a1a"/>
+</svg>
