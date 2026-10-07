@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Caja de velocidades</title>
+<style>
+/* Widget manipulable · Mecanismos y máquinas · Engranajes y cadenas.
+   Autocontenido: sin red, sin dependencias, sin almacenamiento. Estilo Majuelo, chrome de la unidad. */
+:root{--chrome:#817431;--chrome-osc:#60551f;--tinte:#f9f7ee;--linea:#ded8b8;--txt:#2b2a22;--gris:#666052;
+  --ok:#2a7d4f;--ok-bg:#eef7f2;--aviso:#a8541f;--aviso-bg:#fbf0e6;--fuente:Verdana,'DejaVu Sans',Arial,sans-serif}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{font-family:var(--fuente);color:var(--txt);background:#fff;font-size:14px;line-height:1.45;padding:10px 12px 12px}
+h1{font-size:16px;color:var(--chrome-osc);margin:0 0 2px}
+.sub{color:var(--gris);font-size:12.5px;margin:0 0 10px}
+.marchas{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 10px}
+button{font:inherit;font-size:13px;border:2px solid var(--chrome);background:#fff;color:var(--chrome-osc);border-radius:8px;padding:4px 10px;cursor:pointer}
+button[aria-pressed="true"]{background:var(--chrome);color:#fff}
+button:disabled{opacity:.45;cursor:not-allowed}
+button:focus-visible,input:focus-visible{outline:3px solid #f0a72f;outline-offset:2px}
+.caja{border:1px solid var(--linea);border-radius:10px;padding:10px;background:#fffefa;margin:0 0 10px}
+.caja h2{font-size:13.5px;margin:0 0 8px;color:var(--chrome-osc)}
+.datos{font-size:12.5px;margin:0 0 8px;font-variant-numeric:tabular-nums}
+.fila-ctl{display:flex;flex-wrap:wrap;gap:6px 18px}
+.ctl{display:flex;align-items:center;gap:6px;flex:1 1 230px;min-width:0}
+.ctl label{font-size:12.5px;font-weight:700;color:var(--chrome-osc);white-space:nowrap}
+.ctl input{flex:1;min-width:60px;accent-color:var(--chrome)}
+.ctl output{min-width:64px;text-align:right;font-weight:700;font-variant-numeric:tabular-nums}
+svg{display:block;width:100%;height:auto;background:#fff}
+.bloque{transition:transform .5s ease}
+@media (prefers-reduced-motion:reduce){.bloque{transition:none}}
+table{width:100%;border-collapse:collapse;font-size:12.5px}
+th,td{border-bottom:1px solid var(--linea);padding:4px;text-align:center}
+th{color:var(--chrome-osc)}
+tr.activa td{background:var(--tinte);font-weight:700}
+.veredicto{margin-top:8px;padding:9px 10px;border-left:5px solid var(--ok);background:var(--ok-bg);border-radius:6px;font-size:13px}
+.veredicto.aviso{border-color:var(--aviso);background:var(--aviso-bg)}
+.nota{font-size:11.5px;color:var(--gris);margin:8px 0 0}
+</style>
+</head>
+<body>
+<h1>Caja de velocidades: elige marcha</h1>
+<p class="sub">La caja del esquema de esta página. Los bloques de ruedas del eje II se deslizan; los ejes no se mueven nunca.</p>
+
+<div class="marchas" role="group" aria-label="Marcha">
+  <button type="button" data-m="0" aria-pressed="false">Punto muerto</button>
+  <button type="button" data-m="1" aria-pressed="true">1.ª</button>
+  <button type="button" data-m="2" aria-pressed="false">2.ª</button>
+  <button type="button" data-m="3" aria-pressed="false">3.ª</button>
+  <button type="button" data-m="4" aria-pressed="false">4.ª</button>
+</div>
+
+<div class="caja">
+  <p class="datos" id="datos"></p>
+  <svg id="dib" viewBox="0 0 700 470" role="img" aria-labelledby="dib-t"><title id="dib-t">Esquema de la caja: ejes I, II y III con sus ruedas; las que engranan, resaltadas</title></svg>
+</div>
+
+<div class="caja">
+  <div class="fila-ctl">
+    <div class="ctl"><label for="nI">Motor, n<sub>I</sub></label><input id="nI" type="range" min="600" max="3000" step="100"><output></output></div>
+    <div class="ctl"><label for="z4">Prueba otro Z<sub>4</sub></label><input id="z4" type="range" min="20" max="40" step="1"><output></output></div>
+  </div>
+  <div class="veredicto" id="ver" role="status" aria-live="polite"></div>
+</div>
+
+<div class="caja">
+  <h2>Las cuatro marchas</h2>
+  <table>
+    <thead><tr><th>Marcha</th><th>Engranan</th><th>i</th><th>n<sub>III</sub> (rpm)</th></tr></thead>
+    <tbody id="tabla"></tbody>
+  </table>
+</div>
+<p class="nota">Cada rueda se dibuja como un rectángulo de altura igual a su diámetro primitivo (D<sub>p</sub> = m · Z, mismo módulo en toda la caja). Las ruedas marcadas con aspa van fijas a su eje; las unidas por un manguito con raya inclinada se deslizan juntas por el eje II.</p>
+
+<script>
+(function(){
+  var Z0={1:30,2:50,3:50,4:30,5:60,6:30,7:20,8:70};
+  var Z=JSON.parse(JSON.stringify(Z0));
+  var S=3, Y={I:90,II:210,III:345};             // 3 px por diente: Dp = S·Z; distancias entre ejes 40·S y 45·S
+  var XF={1:170,3:300,6:450,8:580}, DA=80, DB=80, ANCHO=20;
+  // marcha → [posición del bloque A (1: Z1-Z2, 2: Z3-Z4, 0: libre), posición del bloque B (1: Z5-Z6, 2: Z7-Z8, 0)]
+  var MARCHAS={0:[0,0],1:[1,2],2:[2,2],3:[1,1],4:[2,1]};
+  var st={m:1,nI:1800};
+  var $=function(id){return document.getElementById(id);};
+  var svg=$("dib"), NS="http://www.w3.org/2000/svg";
+  function coma(x,d){return (Math.round(x*Math.pow(10,d))/Math.pow(10,d)).toString().replace(".",",");}
+  function sub(k){var d="₀₁₂₃₄₅₆₇₈₉";return String(k).split("").map(function(c){return d[+c];}).join("");}
+  function el(tag,at,padre){var e=document.createElementNS(NS,tag);for(var k in at)e.setAttribute(k,at[k]);(padre||svg).appendChild(e);return e;}
+  function tx(x,y,s,fs,col,anc,padre){var t=el("text",{x:x,y:y,"font-size":fs,"text-anchor":anc||"middle",fill:col||"#2b2a22","font-weight":"700","font-family":"Verdana, DejaVu Sans, Arial, sans-serif"},padre);t.textContent=s;return t;}
+  function cabe34(){return Z[1]+Z[2]===Z[3]+Z[4];}
+  function posA(p){return p===1?XF[1]:(p===2?XF[3]-DA:XF[1]+(XF[3]-DA-XF[1])/2);} // x de Z2
+  function posB(p){return p===1?XF[6]:(p===2?XF[8]-DB:XF[6]+(XF[8]-DB-XF[6])/2);} // x de Z5
+  var bA,bB, rects={};
+  function rueda(n,x,y,fijo,padre,fs){
+    var h=S*Z[n], g=el("g",{},padre);
+    rects[n]=el("rect",{x:x-ANCHO/2,y:y-h/2,width:ANCHO,height:h,fill:"#d9dbe0",stroke:"#5d6066","stroke-width":1.5},g);
+    if(fijo){el("path",{d:"M"+(x-ANCHO/2)+" "+(y-9)+" l"+ANCHO+" 18 M"+(x+ANCHO/2)+" "+(y-9)+" l"+(-ANCHO)+" 18",stroke:"#2b2a22","stroke-width":1.4},g);}
+    var t=tx(x+ANCHO/2+4,y-h/2+fs*0.95,"Z"+sub(n),fs,"#2b2a22","start",g);
+    return g;
+  }
+  function dibuja(){
+    var w=svg.clientWidth||640, fs=Math.max(15,12*700/w);
+    while(svg.childNodes.length>1) svg.removeChild(svg.lastChild);
+    rects={};
+    [["I",Y.I],["II",Y.II],["III",Y.III]].forEach(function(e){
+      el("line",{x1:60,y1:e[1],x2:655,y2:e[1],stroke:"#2b2a22","stroke-width":2.4});
+      tx(696,e[1]+fs*0.35,e[0],fs*1.05,"#2b2a22","end");
+    });
+    tx(62,Y.I+fs*1.15,"motor",fs*0.9,"#60551f","start");
+    tx(696,Y.III+fs*1.35,"salida",fs*0.9,"#60551f","end");
+    rueda(1,XF[1],Y.I,true,svg,fs); rueda(3,XF[3],Y.I,true,svg,fs);
+    rueda(6,XF[6],Y.III,true,svg,fs); rueda(8,XF[8],Y.III,true,svg,fs);
+    // bloques deslizantes (se dibujan en x relativo y se trasladan)
+    bA=el("g",{"class":"bloque"}); bB=el("g",{"class":"bloque"});
+    el("rect",{x:ANCHO/2,y:Y.II-11,width:DA-ANCHO,height:22,fill:"#ecebe4",stroke:"#5d6066","stroke-width":1.4},bA);
+    el("line",{x1:DA/2-9,y1:Y.II+11,x2:DA/2+9,y2:Y.II-11,stroke:"#2b2a22","stroke-width":1.4},bA);
+    rueda(2,0,Y.II,false,bA,fs); rueda(4,DA,Y.II,false,bA,fs);
+    el("rect",{x:ANCHO/2,y:Y.II-11,width:DB-ANCHO,height:22,fill:"#ecebe4",stroke:"#5d6066","stroke-width":1.4},bB);
+    el("line",{x1:DB/2-9,y1:Y.II+11,x2:DB/2+9,y2:Y.II-11,stroke:"#2b2a22","stroke-width":1.4},bB);
+    rueda(5,0,Y.II,false,bB,fs); rueda(7,DB,Y.II,false,bB,fs);
+    pinta(true);
+  }
+  function calc(m){
+    var p=MARCHAS[m], a=p[0], b=p[1];
+    if(!a||!b) return null;
+    if(a===2&&!cabe34()) return {imposible:true};
+    var iA=a===1?Z[1]/Z[2]:Z[3]/Z[4], iB=b===1?Z[5]/Z[6]:Z[7]/Z[8];
+    return {iA:iA,iB:iB,i:iA*iB,nII:st.nI*iA,nIII:st.nI*iA*iB,a:a,b:b};
+  }
+  function pinta(sinAnim){
+    var p=MARCHAS[st.m], a=p[0], b=p[1];
+    if(sinAnim){bA.style.transition="none";bB.style.transition="none";}
+    bA.style.transform="translateX("+posA(a)+"px)"; bB.style.transform="translateX("+posB(b)+"px)";
+    if(sinAnim){bA.getBoundingClientRect();bA.style.transition="";bB.style.transition="";}
+    var acopl=[];
+    if(a===1) acopl.push(1,2); if(a===2&&cabe34()) acopl.push(3,4);
+    if(b===1) acopl.push(5,6); if(b===2) acopl.push(7,8);
+    Object.keys(rects).forEach(function(n){
+      var on=acopl.indexOf(+n)>=0;
+      rects[n].setAttribute("fill",on?"#d8cf9c":"#d9dbe0"); rects[n].setAttribute("stroke",on?"#60551f":"#5d6066"); rects[n].setAttribute("stroke-width",on?3:1.5);
+    });
+    if(a===2&&!cabe34()) {rects[4].setAttribute("fill","#f3d3bf");rects[4].setAttribute("stroke","#a8541f");rects[4].setAttribute("stroke-width",3);}
+    // textos
+    $("datos").innerHTML=[1,2,3,4,5,6,7,8].map(function(n){return "Z"+sub(n)+" = "+(n===4&&Z[4]!==Z0[4]?"<strong style='color:#a8541f'>"+Z[4]+"</strong>":Z[n]);}).join(" · ");
+    var s12=Z[1]+Z[2], s34=Z[3]+Z[4], s56=Z[5]+Z[6], s78=Z[7]+Z[8];
+    var suma="Z₁ + Z₂ = "+s12+(s12===s34?" = ":" ≠ ")+"Z₃ + Z₄ = "+s34+" · Z₅ + Z₆ = "+s56+" = Z₇ + Z₈ = "+s78+".";
+    var v=$("ver"), r=calc(st.m);
+    if(st.m===0){v.className="veredicto";v.innerHTML="<strong>Punto muerto.</strong> Ningún bloque engrana: el eje I gira con el motor y el III no recibe movimiento. "+suma;}
+    else if(r&&r.imposible){
+      var dif=(s34-s12)*S/2;
+      v.className="veredicto aviso";
+      v.innerHTML="<strong>Esta marcha no se puede montar.</strong> "+suma+" Con los ejes fijos, Z₃ y Z₄ "+(s34>s12?"se solapan":"no llegan a tocarse")+": sus diámetros primitivos suman "+(s34>s12?"más":"menos")+" de lo que mide la distancia entre los ejes I y II. Fíjate en el esquema.";
+    } else {
+      var ZA=r.a===1?[1,2]:[3,4], ZB=r.b===1?[5,6]:[7,8];
+      v.className="veredicto";
+      v.innerHTML="<strong>"+st.m+".ª:</strong> engranan Z"+sub(ZA[0])+"–Z"+sub(ZA[1])+" y Z"+sub(ZB[0])+"–Z"+sub(ZB[1])+". "+
+        "n<sub>II</sub> = "+st.nI+" · "+Z[ZA[0]]+" / "+Z[ZA[1]]+" = "+coma(r.nII,1)+" rpm; n<sub>III</sub> = "+coma(r.nII,1)+" · "+Z[ZB[0]]+" / "+Z[ZB[1]]+" = <strong>"+coma(r.nIII,1)+" rpm</strong>. "+
+        "i = ("+Z[ZA[0]]+"/"+Z[ZA[1]]+") · ("+Z[ZB[0]]+"/"+Z[ZB[1]]+") = "+coma(r.i,4)+" ("+(r.i<1?"reductora":"multiplicadora")+"). Dos contactos entre ruedas: el eje de salida gira en el mismo sentido que el motor. "+suma;
+    }
+    var tb=$("tabla"); tb.innerHTML="";
+    [1,2,3,4].forEach(function(m){
+      var q=calc(m), p=MARCHAS[m], tr=document.createElement("tr");
+      var eng=(p[0]===1?"Z₁–Z₂":"Z₃–Z₄")+" y "+(p[1]===1?"Z₅–Z₆":"Z₇–Z₈");
+      tr.innerHTML="<td>"+m+".ª</td><td>"+eng+"</td><td>"+(q.imposible?"—":coma(q.i,4))+"</td><td>"+(q.imposible?"no cabe":coma(q.nIII,1))+"</td>";
+      if(m===st.m) tr.className="activa"; tb.appendChild(tr);
+    });
+    document.querySelectorAll("[data-m]").forEach(function(bt){
+      bt.setAttribute("aria-pressed",String(+bt.dataset.m===st.m));
+    });
+    $("nI").value=st.nI; $("nI").nextElementSibling.textContent=st.nI+" rpm";
+    $("z4").value=Z[4]; $("z4").nextElementSibling.textContent=Z[4]+" dientes";
+  }
+  document.querySelectorAll("[data-m]").forEach(function(bt){bt.addEventListener("click",function(){st.m=+bt.dataset.m;pinta();});});
+  $("nI").addEventListener("input",function(){st.nI=+this.value;pinta();});
+  $("z4").addEventListener("input",function(){Z[4]=+this.value;dibuja();});
+  var tmr; window.addEventListener("resize",function(){clearTimeout(tmr);tmr=setTimeout(dibuja,120);});
+  dibuja();
+  window.__caja={marcha:function(m){st.m=m;pinta();},z4:function(z){Z[4]=z;dibuja();},calc:calc};
+})();
+</script>
+</body>
+</html>

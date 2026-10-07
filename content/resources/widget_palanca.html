@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Palanca y ley de la palanca</title>
+<style>
+/* Widget manipulable · Mecanismos y máquinas · Transmisión lineal.
+   Autocontenido: sin red, sin dependencias, sin almacenamiento. Estilo Majuelo, chrome de la unidad. */
+:root{--chrome:#817431;--chrome-osc:#60551f;--tinte:#f9f7ee;--linea:#ded8b8;--txt:#2b2a22;--gris:#666052;
+  --p:#b03a2e;--r:#2c6fb0;--ok:#2a7d4f;--ok-bg:#eef7f2;--aviso:#a8541f;--aviso-bg:#fbf0e6;--fuente:Verdana,'DejaVu Sans',Arial,sans-serif}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{font-family:var(--fuente);color:var(--txt);background:#fff;font-size:14px;line-height:1.45;padding:10px 12px 12px}
+h1{font-size:16px;color:var(--chrome-osc);margin:0 0 2px}
+.sub{color:var(--gris);font-size:12.5px;margin:0 0 10px}
+.presets{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 10px}
+button{font:inherit;font-size:13px;border:2px solid var(--chrome);background:#fff;color:var(--chrome-osc);border-radius:8px;padding:4px 9px;cursor:pointer}
+button[aria-pressed="true"]{background:var(--chrome);color:#fff}
+button:focus-visible,input:focus-visible{outline:3px solid #f0a72f;outline-offset:2px}
+.caja{border:1px solid var(--linea);border-radius:10px;padding:10px;background:#fffefa;margin:0 0 10px}
+.ctls{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:4px 16px}
+.ctl label{display:block;font-size:12.5px;font-weight:700}
+.ctl div{display:flex;align-items:center;gap:6px}
+.ctl input{flex:1;min-width:60px;accent-color:var(--chrome)}
+.ctl output{min-width:64px;text-align:right;font-weight:700;font-variant-numeric:tabular-nums}
+.ctl.p label{color:var(--p)}.ctl.p input{accent-color:var(--p)}
+.ctl.r label{color:var(--r)}.ctl.r input{accent-color:var(--r)}
+.ctl.f label{color:var(--chrome-osc)}
+svg{display:block;width:100%;height:auto;background:#fff}
+.veredicto{padding:9px 10px;border-left:5px solid var(--ok);background:var(--ok-bg);border-radius:6px;font-size:13px}
+.veredicto.aviso{border-color:var(--aviso);background:var(--aviso-bg)}
+.calc{font-size:12.5px;margin:8px 0 0;font-variant-numeric:tabular-nums}
+.nota{font-size:11.5px;color:var(--gris);margin:8px 0 0}
+@media (max-width:560px){.ctls{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<h1>Mueve el fulcro, la potencia y la resistencia</h1>
+<p class="sub">Barra rígida de 2 m. La fuerza que hay que hacer sale de la ley de la palanca; las flechas tienen longitudes proporcionales a las fuerzas (salvo las muy pequeñas, que se alargan para que se vean).</p>
+
+<div class="presets" role="group" aria-label="Palancas de ejemplo">
+  <button type="button" data-preset="0" aria-pressed="true">Balancín del parque</button>
+  <button type="button" data-preset="1" aria-pressed="false">Carretilla</button>
+  <button type="button" data-preset="2" aria-pressed="false">Pinzas de depilar</button>
+</div>
+
+<div class="caja">
+  <div class="ctls">
+    <div class="ctl f"><label for="xf">Fulcro: posición</label><div><input id="xf" type="range" min="0" max="200" step="5"><output></output></div></div>
+    <div class="ctl r"><label for="vr">Resistencia R</label><div><input id="vr" type="range" min="100" max="2000" step="50"><output></output></div></div>
+    <div class="ctl p"><label for="xp">Potencia: posición</label><div><input id="xp" type="range" min="0" max="200" step="5"><output></output></div></div>
+    <div class="ctl r"><label for="xr">Resistencia: posición</label><div><input id="xr" type="range" min="0" max="200" step="5"><output></output></div></div>
+  </div>
+</div>
+
+<div class="caja"><svg id="dib" viewBox="0 0 640 250" role="img" aria-labelledby="dib-t"><title id="dib-t">Palanca: barra, fulcro, fuerzas de potencia y resistencia y sus brazos</title></svg></div>
+
+<div class="veredicto" id="ver" role="status" aria-live="polite"></div>
+<p class="calc" id="calc"></p>
+<p class="nota">Si la potencia y la resistencia quedan al mismo lado del fulcro, para equilibrar la barra tienen que empujar en sentidos contrarios: por eso la flecha de la potencia cambia de sentido en el segundo y el tercer género. Se desprecia el peso de la barra.</p>
+
+<script>
+(function(){
+  var PRESETS=[{f:100,p:0,r:200,R:400},{f:0,p:200,r:50,R:800},{f:0,p:60,r:200,R:100}];
+  var st=JSON.parse(JSON.stringify(PRESETS[0]));
+  var $=function(id){return document.getElementById(id);};
+  var svg=$("dib"), NS="http://www.w3.org/2000/svg";
+  var X0=50, ESC=2.7, YB=130;               // 0..200 cm → 50..590 px
+  function coma(x,d){return (Math.round(x*Math.pow(10,d))/Math.pow(10,d)).toString().replace(".",",");}
+  function miles(x){var s=coma(x,1),p=s.split(",");if(+p[0]>=10000)p[0]=p[0].replace(/\B(?=(\d{3})+(?!\d))/g,"\u00a0");return p.join(",");}
+  function m(cm){return coma(cm/100,2);}
+  function el(tag,at,padre){var e=document.createElementNS(NS,tag);for(var k in at)e.setAttribute(k,at[k]);(padre||svg).appendChild(e);return e;}
+  function tx(x,y,s,fs,col,anc,peso){var t=el("text",{x:x,y:y,"font-size":fs,"text-anchor":anc||"middle",fill:col,"font-weight":peso||"700","font-family":"Verdana, DejaVu Sans, Arial, sans-serif"});t.textContent=s;return t;}
+  function flecha(x,y0,y1,col,w){ // de y0 a y1, punta en y1
+    var dir=y1>y0?1:-1;
+    el("line",{x1:x,y1:y0,x2:x,y2:y1-dir*12,stroke:col,"stroke-width":w});
+    el("path",{d:"M"+(x-8)+" "+(y1-dir*14)+" L"+(x+8)+" "+(y1-dir*14)+" L"+x+" "+y1+" Z",fill:col});
+  }
+  function cota(xa,xb,y,col,etq,fs){
+    if(Math.abs(xb-xa)<1) return;
+    var a=Math.min(xa,xb), b=Math.max(xa,xb);
+    el("line",{x1:a,y1:y,x2:b,y2:y,stroke:col,"stroke-width":1.6});
+    [a,b].forEach(function(x,i){el("path",{d:i?"M"+x+" "+y+" l-8 -4 l0 8 Z":"M"+x+" "+y+" l8 -4 l0 8 Z",fill:col});});
+    var corto=b-a<=fs*3.2, fuera=b+fs*4.5<640, lx=corto?(fuera?b+6:a-6):(a+b)/2, an=corto?(fuera?"start":"end"):"middle";
+    {var t=tx(lx,corto?y+fs*0.35:y-5,"b",fs,col,an);
+      var s1=document.createElementNS(NS,"tspan");s1.setAttribute("baseline-shift","sub");s1.setAttribute("font-size",(fs*0.75).toFixed(2));s1.textContent=etq[0];t.appendChild(s1);
+      var s2=document.createElementNS(NS,"tspan");s2.textContent=" = "+etq[1];t.appendChild(s2);}
+  }
+  function analiza(){
+    var bP=Math.abs(st.p-st.f), bR=Math.abs(st.r-st.f), r={bP:bP,bR:bR};
+    if(st.p===st.r){r.err="La potencia y la resistencia no pueden estar en el mismo punto de la barra.";return r;}
+    if(bP===0){r.err="La potencia está justo sobre el fulcro: su brazo vale 0 y no hace girar la barra. Ninguna fuerza aplicada ahí puede equilibrar la resistencia.";return r;}
+    var mn=Math.min(st.p,st.r,st.f), mx=Math.max(st.p,st.r,st.f);
+    var medio=[["f",st.f],["p",st.p],["r",st.r]].filter(function(q){return q[1]!==mn&&q[1]!==mx;});
+    if(bR===0){r.P=0;r.genero=0;return r;}
+    r.genero= (st.f>mn&&st.f<mx)?1:((st.r>mn&&st.r<mx)?2:3);
+    r.P=st.R*bR/bP; r.mismoLado=(st.p-st.f)*(st.r-st.f)>0;
+    return r;
+  }
+  function pinta(){
+    var a=analiza(), w=svg.clientWidth||600, k=640/w, fs=Math.max(13,12*k), fsg=Math.max(15,14*k);
+    while(svg.childNodes.length>1) svg.removeChild(svg.lastChild);
+    var xf=X0+st.f*ESC, xp=X0+st.p*ESC, xr=X0+st.r*ESC;
+    // barra y fulcro
+    el("rect",{x:X0-6,y:YB-7,width:200*ESC+12,height:14,rx:4,fill:"#f9f7ee",stroke:"#2b2a22","stroke-width":1.6});
+    el("path",{d:"M"+xf+" "+(YB+7)+" l-22 34 l44 0 Z",fill:"#ded8b8",stroke:"#60551f","stroke-width":1.6});
+    tx(xf,YB+41+fs*1.1,"F",fsg,"#60551f");
+    // fuerzas: longitudes proporcionales (100 px a la mayor)
+    var Lmax=95, fmax=Math.max(st.R,a.P||0);
+    var LR=Math.max(22,Lmax*st.R/fmax);
+    flecha(xr,YB-7-LR,YB-7,"#2c6fb0",4);
+    var lab=xr<X0+30?"start":(xr>X0+200*ESC-30?"end":"middle");
+    tx(xr,YB-12-LR,"R",fsg,"#2c6fb0",lab);
+    if(!a.err && a.P>0){
+      var LP=Math.max(22,Lmax*a.P/fmax);
+      if(a.mismoLado) flecha(xp,YB-7,YB-7-Math.max(LP,18),"#b03a2e",4); else flecha(xp,YB-7-LP,YB-7,"#b03a2e",4);
+      var labp=xp<X0+30?"start":(xp>X0+200*ESC-30?"end":"middle");
+      tx(xp,YB-12-(a.mismoLado?Math.max(LP,18):LP),"P",fsg,"#b03a2e",labp);
+    } else {
+      el("circle",{cx:xp,cy:YB,r:6,fill:"#b03a2e"});
+    }
+    // brazos
+    var yc=YB+60+fs*1.8;
+    cota(xf,xp,yc,"#b03a2e",["P",m(Math.abs(st.p-st.f))+" m"],fs);
+    cota(xf,xr,yc+fs*1.9,"#2c6fb0",["R",m(Math.abs(st.r-st.f))+" m"],fs);
+    var vb=yc+fs*2.3; svg.setAttribute("viewBox","0 "+(Math.min(0,YB-12-Lmax-fsg-6))+" 640 "+(vb+6-Math.min(0,YB-12-Lmax-fsg-6)));
+
+    // textos
+    var v=$("ver"), c=$("calc"), G=["","primer","segundo","tercer"], MED=["","el fulcro","la resistencia","la potencia"];
+    if(a.err){v.className="veredicto aviso";v.innerHTML=a.err;c.innerHTML="";}
+    else if(a.genero===0){v.className="veredicto aviso";v.innerHTML="La resistencia está justo sobre el fulcro: la soporta el apoyo y no hace falta potencia (P = 0). No es una palanca útil.";c.innerHTML="";}
+    else{
+      var vm=st.R/a.P, txt;
+      if(Math.abs(vm-1)<1e-9) txt="P = R: <strong>ni ventaja ni desventaja mecánica</strong>; los dos brazos son iguales.";
+      else if(vm>1) txt="Haces <strong>"+coma(vm,2)+" veces menos fuerza</strong> que la resistencia: <strong>ventaja mecánica</strong>, porque el brazo de la potencia es el largo.";
+      else txt="Tienes que hacer <strong>"+coma(1/vm,2)+" veces más fuerza</strong> que la resistencia: <strong>desventaja mecánica</strong>, porque el brazo de la potencia es el corto.";
+      var siempre=a.genero===2?" En el segundo género esto pasa siempre.":(a.genero===3?" En el tercer género esto pasa siempre.":" En el primer género depende de dónde caiga el fulcro: muévelo y compruébalo.");
+      v.className="veredicto"; v.innerHTML="<strong>Palanca de "+G[a.genero]+" género</strong>: en medio está "+MED[a.genero]+". "+txt+siempre;
+      c.innerHTML="P · b<sub>P</sub> = R · b<sub>R</sub> → P = "+st.R+" · "+m(a.bR)+" / "+m(a.bP)+" = <strong>"+miles(a.P)+" N</strong>. Comprobación: "+miles(a.P)+" · "+m(a.bP)+" = "+st.R+" · "+m(a.bR)+" = "+coma(st.R*a.bR/100,1)+" N·m.";
+    }
+    [["xf",st.f," cm"],["xp",st.p," cm"],["xr",st.r," cm"],["vr",st.R," N"]].forEach(function(q){var i=$(q[0]);i.value=q[1];i.nextElementSibling.textContent=q[1]+q[2];});
+  }
+  function marca(n){document.querySelectorAll("[data-preset]").forEach(function(b){b.setAttribute("aria-pressed",String(+b.dataset.preset===n));});}
+  document.querySelectorAll("[data-preset]").forEach(function(b){b.addEventListener("click",function(){st=JSON.parse(JSON.stringify(PRESETS[+b.dataset.preset]));marca(+b.dataset.preset);pinta();});});
+  [["xf","f"],["xp","p"],["xr","r"],["vr","R"]].forEach(function(q){$(q[0]).addEventListener("input",function(){st[q[1]]=+this.value;marca(-1);pinta();});});
+  var tmr; window.addEventListener("resize",function(){clearTimeout(tmr);tmr=setTimeout(pinta,120);});
+  pinta();
+  window.__palanca={fija:function(s){st=s;pinta();},analiza:analiza};
+})();
+</script>
+</body>
+</html>
