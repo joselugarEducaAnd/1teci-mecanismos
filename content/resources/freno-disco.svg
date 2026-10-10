@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 360" role="img" aria-labelledby="dt dd" font-family="Verdana, 'DejaVu Sans', Arial, sans-serif">
+<title id="dt">Freno de disco, en corte</title>
+<desc id="dd">Corte de un freno de disco de pinza flotante. El disco, d, gira en vertical en el centro; la pinza lo abraza por arriba con una pastilla, p, a cada lado. Al llegar el líquido de frenos por el tubo, empuja el pistón, que aprieta la pastilla de su lado contra el disco; la pinza se desliza en sentido contrario y arrastra la otra pastilla contra la otra cara. El disco, que bajaba girando, se frena hasta pararse; al soltar, todo vuelve atrás y el disco gira de nuevo.</desc>
+<defs><marker id="fd" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 Z" fill="#1d1d1b"/></marker><pattern id="vanos" width="24" height="22" patternUnits="userSpaceOnUse"><rect width="24" height="22" fill="#b9bdc4"/><rect x="8" y="0" width="8" height="12" fill="#6f747c"/><animateTransform attributeName="patternTransform" type="translate" dur="6s" repeatCount="indefinite" keyTimes="0;0.3;0.42;0.87;1" values="0 0;0 66;0 88;0 88;0 88" calcMode="spline" keySplines="0 0 1 1;0 0 1 1;0.2 0.8 0.4 1;0 0 1 1;0 0 1 1"/></pattern><pattern id="liq" width="6" height="6" patternUnits="userSpaceOnUse"><rect width="6" height="6" fill="#e2b23a"/><circle cx="3" cy="3" r="1" fill="#c48d12"/></pattern></defs>
+<rect width="560" height="360" fill="#ffffff"/>
+<rect x="236" y="96" width="34" height="270" fill="url(#vanos)"/>
+<rect x="236" y="96" width="8" height="270" fill="#a7abb2" stroke="#4d5158" stroke-width="1.2"/>
+<rect x="262" y="96" width="8" height="270" fill="#a7abb2" stroke="#4d5158" stroke-width="1.2"/>
+<path d="M236 96 H270 V366 H236 Z" fill="none" stroke="#4d5158" stroke-width="1.6"/>
+<g><animateTransform attributeName="transform" type="translate" dur="6s" repeatCount="indefinite" keyTimes="0;0.3;0.42;0.75;0.87;1" values="0 0;0 0;6 0;6 0;0 0;0 0"/>
+<path d="M180 48 H392 V214 H364 V138 H302 V200 H290 V74 H208 V200 H180 Z" fill="#8f99a6" stroke="#38404a" stroke-width="1.8" stroke-linejoin="round"/>
+<rect x="208" y="112" width="6" height="74" fill="#5c6670"/>
+<rect x="214" y="116" width="16" height="66" fill="#3d3a35"/>
+<rect x="352" y="138" width="12" height="62" fill="url(#liq)"><animate attributeName="x" dur="6s" repeatCount="indefinite" keyTimes="0;0.3;0.42;0.75;0.87;1" values="352;352;340;340;352;352"/><animate attributeName="width" dur="6s" repeatCount="indefinite" keyTimes="0;0.3;0.42;0.75;0.87;1" values="12;12;24;24;12;12"/></rect>
+<path d="M358 140 V30 Q358 16 372 16 H548" fill="none" stroke="#38404a" stroke-width="13" stroke-linecap="butt"/>
+<path d="M358 140 V30 Q358 16 372 16 H548" fill="none" stroke="#e2b23a" stroke-width="7"/>
+</g>
+<g><animateTransform attributeName="transform" type="translate" dur="6s" repeatCount="indefinite" keyTimes="0;0.3;0.42;0.75;0.87;1" values="0 0;0 0;-6 0;-6 0;0 0;0 0"/>
+<rect x="276" y="116" width="16" height="66" fill="#3d3a35"/>
+<rect x="292" y="112" width="6" height="74" fill="#5c6670"/>
+<path d="M298 140 H352 V198 H298 Z" fill="#dfe3e8" stroke="#38404a" stroke-width="1.6"/>
+<path d="M306 140 V198 M314 140 V198" stroke="#b8bec6" stroke-width="1"/>
+</g>
+<g opacity="0"><animate attributeName="opacity" dur="6s" repeatCount="indefinite" keyTimes="0;0.4;0.44;0.75;0.79;1" values="0;0;1;1;0;0"/><path d="M330 236 H300" stroke="#b03a2e" stroke-width="3" marker-end="url(#fd)"/><path d="M186 236 H216" stroke="#b03a2e" stroke-width="3" marker-end="url(#fd)"/></g>
+<path d="M196 60 L120 40" stroke="#1d1d1b" stroke-width="1"/><circle cx="196" cy="60" r="2.5" fill="#1d1d1b"/>
+<text x="116" y="45" text-anchor="end" font-size="16" fill="#1d1d1b">pinza</text>
+<path d="M222 160 L120 150" stroke="#1d1d1b" stroke-width="1"/><circle cx="222" cy="160" r="2.5" fill="#1d1d1b"/>
+<text x="116" y="155" text-anchor="end" font-size="16" fill="#1d1d1b">pastillas (p)</text>
+<path d="M120 150 L284 176" stroke="#1d1d1b" stroke-width="1"/><circle cx="284" cy="176" r="2.5" fill="#1d1d1b"/>
+<path d="M253 300 L120 300" stroke="#1d1d1b" stroke-width="1"/><circle cx="253" cy="300" r="2.5" fill="#1d1d1b"/>
+<text x="116" y="305" text-anchor="end" font-size="16" fill="#1d1d1b">disco (d)</text>
+<path d="M330 190 L430 280" stroke="#1d1d1b" stroke-width="1"/><circle cx="330" cy="190" r="2.5" fill="#1d1d1b"/>
+<text x="434" y="285" text-anchor="start" font-size="16" fill="#1d1d1b">pistón</text>
+<path d="M480 16 L480 42" stroke="#1d1d1b" stroke-width="1"/><circle cx="480" cy="16" r="2.5" fill="#1d1d1b"/>
+<text x="480" y="62" text-anchor="middle" font-size="16" fill="#1d1d1b">líquido de frenos</text>
+</svg>
