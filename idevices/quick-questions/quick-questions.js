@@ -266,7 +266,7 @@ var $quickquestions = {
                     </div>
                     <div class="QXTP-Multimedia" id="quextMultimedia-${instance}">
                         <img class="QXTP-Cursor" id="quextCursor-${instance}" src="${path}exequextcursor.gif" alt="" />
-                        <img src="" class="QXTP-Images" id="quextImage-${instance}" alt="${msgs.msgNoImage}" />
+                        <img class="QXTP-Images" id="quextImage-${instance}" alt="${msgs.msgNoImage}" />
                         <div class="QXTP-EText" id="quextEText-${instance}"></div>
                         <img src="${path}quextHome.png" class="QXTP-Cover" id="quextCover-${instance}" alt="${msgs.msgNoImage}" />
                         <div class="QXTP-Video" id="quextVideo-${instance}"></div>
@@ -288,7 +288,7 @@ var $quickquestions = {
                         </div>
                     </div>
                     <div class="QXTP-AuthorLicence" id="quextAuthorLicence-${instance}">
-                        <div class="sr-av">${msgs.msgAuthor}:</div>
+                        <div class="sr-av">Retroalimentación:</div>
                         <p id="quextPAuthor-${instance}"></p>
                     </div>
                     <div class="sr-av" id="quextStartGameSRAV-${instance}">${msgs.msgPlayStart}:</div>
@@ -750,7 +750,12 @@ var $quickquestions = {
             $exeDevices.iDevice.gamification.scorm.registerActivity(mOptions);
         }
 
-        document.title = mOptions.title;
+        if (
+            typeof mOptions.title === 'string' &&
+            mOptions.title.trim() !== ''
+        ) {
+            document.title = mOptions.title;
+        }
         $('meta[name=author]').attr('content', mOptions.author);
         $('#quextPShowClue-' + instance).hide();
         mOptions.gameOver = false;
@@ -1459,7 +1464,7 @@ var $quickquestions = {
             $author = $('#quextAuthor-' + instance),
             $protect = $('#quextProtector-' + instance);
 
-        $image.attr('alt', 'No image');
+        $image.removeAttr('src').attr('alt', 'No image');
         $cursor.hide();
         $image.hide();
         $noImage.hide();
@@ -1474,7 +1479,6 @@ var $quickquestions = {
         }
 
         $image
-            .attr('src', '')
             .attr('src', url)
             .on('load', function () {
                 if (

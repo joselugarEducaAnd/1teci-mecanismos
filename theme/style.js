@@ -3,6 +3,23 @@ var myTheme = {
         // Common functions
         if (this.inIframe()) $('body').addClass('in-iframe');
         if (!$('body').hasClass('exe-web-site')) return;
+        // El enlace de salto debe trasladar el foco, no solo cambiar el fragmento.
+        $('#skipNav').on('click', function (event) {
+            var href = this.getAttribute('href');
+            var target = href ? document.querySelector(href) : null;
+            if (!target) return;
+            event.preventDefault();
+            if (!target.hasAttribute('tabindex')) {
+                target.setAttribute('tabindex', '-1');
+            }
+            target.focus();
+            target.scrollIntoView();
+            if (window.history && window.history.pushState) {
+                window.history.pushState(null, '', href);
+            } else {
+                window.location.hash = href;
+            }
+        });
         // Add menu and search bar togglers
         var togglers =
             '\
