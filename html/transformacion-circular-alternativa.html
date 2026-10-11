@@ -12,8 +12,7 @@
 <script src="../idevices/udl-content/udl-content.js"></script><link rel="stylesheet" href="../idevices/udl-content/udl-content.css">
 <script src="../idevices/file-attachment/file-attachment.js"></script><link rel="stylesheet" href="../idevices/file-attachment/file-attachment.css">
 <script src="../idevices/trueorfalse/trueorfalse.js"></script><link rel="stylesheet" href="../idevices/trueorfalse/trueorfalse.css">
-<link rel="stylesheet" href="../content/css/base.css"><script src="../theme/style.js"> </script>
-<script src="../theme/zzz-majuelo.js"> </script><link rel="stylesheet" href="../theme/style.css"><link rel="stylesheet" href="../theme/zzz-majuelo.css">
+<link rel="stylesheet" href="../content/css/base.css"><script src="../theme/style.js"> </script><script src="../theme/zzz-majuelo.js"> </script><link rel="stylesheet" href="../theme/style.css"><link rel="stylesheet" href="../theme/zzz-majuelo.css">
 <script src="../libs/exe_math/tex-mml-svg.js"> </script>
 </head>
 <body class="exe-export exe-web-site">
@@ -143,6 +142,17 @@
 <li><strong class="clave">Transformación del movimiento lineal en circular (pistón-biela-cigüeñal):</strong>esta posibilidad se usa habitualmente en los motores de combustión interna.&nbsp;Al producirse la explosión en el cilindro, debida a la quema de un hidrocarburo (gasolina, gasóleo, queroseno, etc.) mezclado con oxígeno, el pistón se desplaza y provoca un giro de 180° en la manivela. El resto de giro se puede completar por la inercia del sistema, aunque normalmente se utilizan varios cilindros para que siempre haya alguno "empujando". En este caso, todas las manivelas están en un mismo árbol que se denomina <strong class="clave">cigüeñal</strong>.</li>
 </ul>
 <p style="padding-left: 30px;"><img src="../content/resources/ciguenal.gif" alt="Animación de pistones, bielas y cigüeñal en un motor." width="399" height="266" style="display: block; margin-left: auto; margin-right: auto;"></p></div></div></section></div><p>Del mecanismo biela-manivela lo que se calcula es el <strong class="clave">recorrido del émbolo</strong>, que se llama <strong class="clave">carrera</strong>. El extremo de la manivela describe una circunferencia de radio r, así que el émbolo va desde el punto más alejado hasta el más cercano, es decir, un diámetro completo:</p><div class="marco-formula"><p class="formula-bloque">\[c=2\cdot r\]</p></div><p>Donde:</p><ul><li><strong class="clave">c: carrera</strong> del émbolo, en las mismas unidades que r</li><li><strong class="clave">r: radio de la manivela</strong> (la distancia del eje de giro al punto donde se articula la biela)</li></ul><div class="marco-nota"><p>Fíjate en que <strong class="clave">la longitud de la biela no aparece</strong>: la carrera solo depende de la manivela. La biela decide dónde queda el émbolo respecto del eje de giro y cómo de suave es el movimiento, pero no cuánto recorre. Y además, cada vuelta completa de la manivela son <strong class="clave">dos</strong> recorridos del émbolo: uno de ida y otro de vuelta.</p></div>
+</div>
+</div>
+</article><article id="block-1791730000007-bielasim3" class="box">
+<header class="box-head no-icon">
+<h1 class="box-title">Simulación 3D: biela-manivela</h1>
+<button class="box-toggle box-toggle-on" title="Toggle content">
+<span>Toggle content</span>
+</button></header>
+<div class="box-content">
+<div id="idevice-1791730000007-bielasim3" class="idevice_node udl-content" data-idevice-path="../idevices/udl-content/" data-idevice-type="udl-content">
+<div class="exe-udlContent exe-udlContent-representation"><section class="exe-udlContent-block"><div class="exe-udlContent-content"><div class="exe-udlContent-content-main"><p>La manivela gira y el émbolo va y viene. Cambia las medidas y comprueba de qué depende la carrera.</p><iframe class="sda05-sim3d" src="../content/resources/mecanismos_3d.html" name="escena=biela;r=40;l=140" title="Mecanismo biela-manivela en 3D: carrera del émbolo" width="100%" height="1040" loading="lazy" style="display: block; width: 100%; max-width: 980px; margin: 1rem auto; border: 1px solid #ded8b8; border-radius: 12px; background: #ffffff;"></iframe><script>(function(){function ajusta(){var fs=document.querySelectorAll("iframe.sda05-sim3d");for(var i=0;i<fs.length;i++){var f=fs[i];if(!f.getBoundingClientRect().width)continue;try{var d=f.contentDocument,b=d&&d.body;if(!b)continue;var h=Math.ceil(b.getBoundingClientRect().height+16);if(h>300&&Math.abs(h-f.clientHeight)>4)f.style.height=h+"px";}catch(e){}}}document.addEventListener("click",function(){setTimeout(ajusta,120);setTimeout(ajusta,600);setTimeout(ajusta,1500);},true);window.addEventListener("load",function(){ajusta();setTimeout(ajusta,400);});setInterval(ajusta,1000);})();</script></div></div></section></div>
 </div>
 </div>
 </article><article id="block-mss29609-u4ae89npz" class="box">
